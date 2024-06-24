@@ -21,6 +21,11 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: '8'
+    
+    - name: Extract latest commit message
+      run: |
+        GIT_MESSAGE=$(git log -1 --pretty=format:"%s")
+        echo "GIT_MESSAGE=$GIT_MESSAGE" >> $GIT_MESSAGE
 
     - name: Install xmlstarlet
       run: sudo apt-get install -y xmlstarlet
@@ -65,10 +70,10 @@ jobs:
 
     - name: Commit and push files
       run: |
-        git config user.name "vikulin"
-        git config user.email "vadym.vikulin@rivchain.org"
+        git config user.name "${{ github.event.sender.login }}"
+        git config user.email "${{ github.event.sender.email }}"
         git add .
-        git commit -m "${{ github.event.repository.commits_url }}. Version: ${{ env.VERSION }}"
+        git commit -m "${{ env.GIT_MESSAGE }}. Version: ${{ env.VERSION }}"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
