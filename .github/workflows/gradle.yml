@@ -75,7 +75,7 @@ jobs:
         git config user.name "${{ github.actor }}"
         git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
         git add .
-        git commit -m "${{ env.GIT_MESSAGE }} https://github.com/RiV-chain/${{ github.event.repository }}/commit/${{ env.GIT_HASH }}. Version: ${{ env.VERSION }}"
+        git commit -m "${{ env.GIT_MESSAGE }} https://github.com/${{ github.event.repository.full_name }}/commit/${{ env.GIT_HASH }}. Version: ${{ env.VERSION }}"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
