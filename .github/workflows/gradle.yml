@@ -25,7 +25,7 @@ jobs:
     - name: Extract latest commit message
       run: |
         GIT_MESSAGE=$(git log -1 --pretty=format:"%s")
-        echo "GIT_MESSAGE=$GIT_MESSAGE" >> $GIT_MESSAGE
+        echo "GIT_MESSAGE=$GIT_MESSAGE" >> $GITHUB_ENV
 
     - name: Install xmlstarlet
       run: sudo apt-get install -y xmlstarlet
