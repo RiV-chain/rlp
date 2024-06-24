@@ -30,7 +30,7 @@ jobs:
         bash ./gradlew build
         bash ./gradlew publishToMavenLocal
 
-    - name: Extract version from generated POM file
+    - name: Extract artifactId, groupId, version from generated POM file
       id: extract_version
       run: |
         xml_file=$(find ~/.m2/repository -type f -name "*.pom" -print -quit)
@@ -68,7 +68,7 @@ jobs:
         git config user.name "vikulin"
         git config user.email "vadym.vikulin@rivchain.org"
         git add .
-        git commit -m "Add build artifacts for version ${{ env.VERSION }}"
+        git commit -m "${{ github.event.head_commit.message }}. Version: ${{ env.VERSION }}"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
