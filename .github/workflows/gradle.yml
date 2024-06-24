@@ -68,7 +68,7 @@ jobs:
         git config user.name "vikulin"
         git config user.email "vadym.vikulin@rivchain.org"
         git add .
-        git commit -m "${{ github.event.workflow_run.head_commit.message }}. Version: ${{ env.VERSION }}"
+        git commit -m "${{ github.event.repository.commits_url }}. Version: ${{ env.VERSION }}"
 
     - name: Push changes
       uses: ad-m/github-push-action@master
