@@ -46,7 +46,7 @@ jobs:
         repository: 'RiV-chain/artifact'
         ref: ${{ github.head_ref }}
         fetch-depth: 0
-        token: ${{ secrets.MAVEN_TOKEN }}
+        token: ${{ secrets.MAVEN_PAT }}
 
     - name: Create package directories
       run: |
@@ -72,6 +72,6 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.MAVEN_TOKEN }}
+        github_token: ${{ secrets.MAVEN_PAT }}
         repository: RiV-chain/artifact
         force_with_lease: true
