@@ -3,6 +3,10 @@ name: Java CI
 on: 
   workflow_dispatch:
 
+permissions:                    # Global permissions configuration starts here
+  contents: write
+  pull-requests: write
+
 jobs:
   build:
 
@@ -40,7 +44,9 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: 'RiV-chain/artifact'
-        ref: "main"
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+        token: ${{ secrets.MAVEN_TOKEN }}
 
     - name: Create package directories
       run: |
@@ -60,7 +66,12 @@ jobs:
         cd artifact
         git config user.name "vikulin"
         git config user.email "vadym.vikulin@rivchain.org"
-        git remote add gh-token "https://${{ secrets.MAVEN_PAT }}@github.com/RiV-chain/artifacts.git"
         git add .
         git commit -m "Add build artifacts for version ${{ env.VERSION }}"
-        git push
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.MAVEN_TOKEN }}
+        repository: RiV-chain/artifact
+        force_with_lease: true
