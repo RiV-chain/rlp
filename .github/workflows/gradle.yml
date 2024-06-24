@@ -32,7 +32,8 @@ jobs:
     - name: Extract version from generated POM file
       id: extract_version
       run: |
-        VERSION=$(xmlstarlet sel -t -v "/project/version" build/publications/maven/pom-default.xml)
+        xml_file=$(find ~/.m2/repository/org/tdf/rlp -type f -name "*.xml" -print -quit)
+        VERSION=$(xmlstarlet sel -t -v "/project/version"  "$xml_file")
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Checkout artifact repo
