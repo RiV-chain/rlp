@@ -30,9 +30,6 @@ jobs:
         bash ./gradlew build
         bash ./gradlew publishToMavenLocal
 
-    - name: List build directory for debugging
-      run: ls -R ~/.m2
-
     - name: Extract version from generated POM file
       id: extract_version
       run: |
