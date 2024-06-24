@@ -50,20 +50,19 @@ jobs:
 
     - name: Create package directories
       run: |
-        mkdir -p artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}
+        mkdir -p org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}
 
     - name: Copy JAR, POM, SHA-1, and MD5 files
       run: |
-        cp -r ~/.m2/repository/org artifact
-        mv artifact/org/tdf/${{ github.event.repository.name }}/maven-metadata-local.xml artifact/org/tdf/${{ github.event.repository.name }}/maven-metadata.xml
-        sha1sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.sha1
-        md5sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.md5
-        sha1sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.sha1
-        md5sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.md5
+        cp -r ~/.m2/repository/org .
+        mv org/tdf/${{ github.event.repository.name }}/maven-metadata-local.xml org/tdf/${{ github.event.repository.name }}/maven-metadata.xml
+        sha1sum org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.sha1
+        md5sum org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.md5
+        sha1sum org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.sha1
+        md5sum org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.md5
 
     - name: Commit and push files
       run: |
-        cd artifact
         git config user.name "vikulin"
         git config user.email "vadym.vikulin@rivchain.org"
         git add .
