@@ -55,7 +55,8 @@ jobs:
 
     - name: Copy JAR, POM, SHA-1, and MD5 files
       run: |
-        cp -r ~/.m2/repository/org .
+        FIRST_TERM=$(echo "${{ env.GROUPID }}" | cut -d'/' -f1)
+        cp -r ~/.m2/repository/$FIRST_TERM .
         mv ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/maven-metadata-local.xml ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/maven-metadata.xml
         sha1sum ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar > ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar.sha1
         md5sum ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar > ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar.md5
