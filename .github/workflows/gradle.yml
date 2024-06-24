@@ -22,7 +22,9 @@ jobs:
       run: sudo apt-get install -y xmlstarlet
 
     - name: Build with Gradle
-      run: bash ./gradlew build
+      run: |
+        bash ./gradlew build
+        bash ./gradlew publishToMavenLocal
 
     - name: List build directory for debugging
       run: ls -R ~/.m2
