@@ -40,7 +40,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: 'RiV-chain/artifact'
-        token: ${{ secrets.github_token }}
 
     - name: Create package directories
       run: |
@@ -58,10 +57,9 @@ jobs:
     - name: Commit and push files
       run: |
         cd artifact
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git config user.name "vikulin"
+        git config user.email "vadym.vikulin@rivchain.org"
+        git remote add gh-token "https://${{ secrets.github_token}}@github.com/RiV-Chain/artifacts.git"
         git add .
         git commit -m "Add build artifacts for version ${{ env.VERSION }}"
         git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.github_token }}
