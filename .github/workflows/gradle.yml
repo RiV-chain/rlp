@@ -36,7 +36,7 @@ jobs:
     - name: Extract version from generated POM file
       id: extract_version
       run: |
-        xml_file=$(find ~/.m2/repository/org/tdf/ -type f -name "*.pom" -print -quit)
+        xml_file=$(find ~/.m2/repository -type f -name "*.pom" -print -quit)
         VERSION=$(xmlstarlet sel -N xmlns="http://maven.apache.org/POM/4.0.0" -t -v "//xmlns:project/xmlns:version" "$xml_file")
         GROUPID=$(xmlstarlet sel -N xmlns="http://maven.apache.org/POM/4.0.0" -t -v "//xmlns:project/xmlns:groupId" "$xml_file" | sed 's/\./\//g')
         ARTIFACTID=$(xmlstarlet sel -N xmlns="http://maven.apache.org/POM/4.0.0" -t -v "//xmlns:project/xmlns:artifactId" "$xml_file")       
