@@ -33,6 +33,7 @@ jobs:
       id: extract_version
       run: |
         xml_file=$(find ~/.m2/repository/org/tdf/ -type f -name "*.pom" -print -quit)
+        VERSION=$(xmlstarlet sel -t -v "/project/version"  "$xml_file")
 
     - name: Checkout artifact repo
       uses: actions/checkout@v4
