@@ -32,7 +32,7 @@ jobs:
     - name: Extract version from generated POM file
       id: extract_version
       run: |
-        xml_file=$(find ~/.m2/repository/org/tdf/rlp -type f -name "*.xml" -print -quit)
+        xml_file=$(find ~/.m2/repository/org/tdf/ -type f -name "*.pom" -print -quit)
         VERSION=$(xmlstarlet sel -t -v "/project/version"  "$xml_file")
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
