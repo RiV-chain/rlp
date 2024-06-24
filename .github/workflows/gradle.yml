@@ -50,10 +50,10 @@ jobs:
       run: |
         cp -r ~/.m2/repository/org artifact
         mv artifact/org/tdf/${{ github.event.repository.name }}/maven-metadata-local.xml artifact/org/tdf/${{ github.event.repository.name }}/maven-metadata.xml
-        sha1sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.jar > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.jar.sha1
-        md5sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.jar > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.jar.md5
-        sha1sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.pom > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.pom.sha1
-        md5sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.pom > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/org.tdf-${{ env.VERSION }}.pom.md5
+        sha1sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.sha1
+        md5sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.md5
+        sha1sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.sha1
+        md5sum artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > artifact/org/tdf/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.md5
 
     - name: Commit and push files
       run: |
