@@ -39,8 +39,10 @@ jobs:
         xml_file=$(find ~/.m2/repository/org/tdf/ -type f -name "*.pom" -print -quit)
         VERSION=$(xmlstarlet sel -N xmlns="http://maven.apache.org/POM/4.0.0" -t -v "//xmlns:project/xmlns:version" "$xml_file")
         GROUPID=$(xmlstarlet sel -N xmlns="http://maven.apache.org/POM/4.0.0" -t -v "//xmlns:project/xmlns:groupId" "$xml_file" | sed 's/\./\//g')
+        ARTIFACTID=$(xmlstarlet sel -N xmlns="http://maven.apache.org/POM/4.0.0" -t -v "//xmlns:project/xmlns:artifactId" "$xml_file")       
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "GROUPID=$GROUPID" >> $GITHUB_ENV
+        echo "ARTIFACTID=$ARTIFACTID" >> $GITHUB_ENV
 
     - name: Checkout artifact repo
       uses: actions/checkout@v4
@@ -52,16 +54,16 @@ jobs:
 
     - name: Create package directories
       run: |
-        mkdir -p ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}
+        mkdir -p ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}
 
     - name: Copy JAR, POM, SHA-1, and MD5 files
       run: |
         cp -r ~/.m2/repository/org .
-        mv ${{ env.GROUPID }}/${{ github.event.repository.name }}/maven-metadata-local.xml ${{ env.GROUPID }}/${{ github.event.repository.name }}/maven-metadata.xml
-        sha1sum ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.sha1
-        md5sum ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar > ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.jar.md5
-        sha1sum ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.sha1
-        md5sum ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom > ${{ env.GROUPID }}/${{ github.event.repository.name }}/${{ env.VERSION }}/${{ github.event.repository.name }}-${{ env.VERSION }}.pom.md5
+        mv ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/maven-metadata-local.xml ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/maven-metadata.xml
+        sha1sum ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar > ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar.sha1
+        md5sum ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar > ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.jar.md5
+        sha1sum ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.pom > ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.pom.sha1
+        md5sum ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.pom > ${{ env.GROUPID }}/${{ env.ARTIFACTID }}/${{ env.VERSION }}/${{ env.ARTIFACTID }}-${{ env.VERSION }}.pom.md5
 
     - name: Commit and push files
       run: |
